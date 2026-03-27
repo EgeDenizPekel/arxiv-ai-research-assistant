@@ -1,5 +1,7 @@
 # ArXiv AI Research Assistant
 
+![ArXiv RAG Assistant - Query interface showing retrieved sources and streamed answer](screenshots/demo-query.png)
+
 A production RAG system that answers natural-language questions over 750 ArXiv ML/AI papers. Goes beyond tutorial RAG by implementing hybrid retrieval, cross-encoder reranking, and HyDE query rewriting - then rigorously evaluating all four retrieval configurations head-to-head using RAGAS metrics tracked in MLflow.
 
 ## What makes this different from basic RAG
