@@ -56,15 +56,15 @@ def _embed_query(text: str) -> list[float]:
 def _qdrant_search(query_vector: list[float], top_k: int) -> list[dict]:
     """Dense search in Qdrant. Returns list of chunk dicts with 'score' added."""
     client = _get_qdrant()
-    results = client.search(
+    response = client.query_points(
         collection_name=COLLECTION_NAME,
-        query_vector=query_vector,
+        query=query_vector,
         limit=top_k,
         with_payload=True,
     )
     return [
         {**r.payload, "id": r.id, "score": r.score}
-        for r in results
+        for r in response.points
     ]
 
 
