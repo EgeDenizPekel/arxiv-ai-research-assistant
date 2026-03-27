@@ -184,7 +184,25 @@ def run_evaluation(
                 all_results[config] = scores
 
     _print_comparison_table(all_results)
+    _write_eval_results_json(all_results, dataset_size=len(eval_pairs), run_name=run_name)
     return all_results
+
+
+def _write_eval_results_json(
+    results: dict[str, dict[str, float]],
+    dataset_size: int,
+    run_name: str,
+    path: Path = Path("eval_results.json"),
+) -> None:
+    """Write eval results to eval_results.json for the FastAPI /eval-results endpoint."""
+    payload = {
+        "timestamp": run_name,
+        "dataset_size": dataset_size,
+        "configs": results,
+    }
+    with open(path, "w") as f:
+        json.dump(payload, f, indent=2)
+    logger.info(f"Eval results written to {path}")
 
 
 def _print_comparison_table(results: dict[str, dict[str, float]]) -> None:
