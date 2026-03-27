@@ -17,6 +17,10 @@ from pathlib import Path
 
 import mlflow
 from dotenv import load_dotenv
+
+# Force local file-based MLflow tracking regardless of MLFLOW_TRACKING_URI in .env.
+# The server-based URI requires auth in MLflow 2.x - file tracking is simpler for local dev.
+mlflow.set_tracking_uri("file:./mlruns")
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from loguru import logger
 from ragas import evaluate
@@ -24,6 +28,7 @@ from ragas.dataset_schema import EvaluationDataset, SingleTurnSample
 from ragas.embeddings import LangchainEmbeddingsWrapper
 from ragas.llms import LangchainLLMWrapper
 from ragas.metrics import AnswerRelevancy, ContextPrecision, ContextRecall, Faithfulness
+from ragas.run_config import RunConfig
 from tqdm import tqdm
 
 from src.generation import get_rag_response
@@ -90,13 +95,26 @@ def _run_config(
         AnswerRelevancy(llm=evaluator_llm, embeddings=evaluator_embeddings),
     ]
 
-    result = evaluate(dataset, metrics=metrics)
+    # Limit concurrency to avoid TPM rate limits on gpt-4o-mini (200k TPM).
+    run_config = RunConfig(max_workers=4, max_wait=120, timeout=60)
+
+    result = evaluate(
+        dataset,
+        metrics=metrics,
+        run_config=run_config,
+        raise_exceptions=False,
+    )
+
+    def _mean(values: list) -> float:
+        """Mean of a list, ignoring None values from failed evaluations."""
+        valid = [v for v in values if v is not None]
+        return float(sum(valid) / len(valid)) if valid else 0.0
 
     scores = {
-        "faithfulness": float(result["faithfulness"]),
-        "context_precision": float(result["context_precision"]),
-        "context_recall": float(result["context_recall"]),
-        "answer_relevancy": float(result["answer_relevancy"]),
+        "faithfulness": _mean(result["faithfulness"]),
+        "context_precision": _mean(result["context_precision"]),
+        "context_recall": _mean(result["context_recall"]),
+        "answer_relevancy": _mean(result["answer_relevancy"]),
     }
     logger.success(f"[{config}] {scores}")
     return scores

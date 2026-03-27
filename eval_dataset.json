@@ -1,0 +1,368 @@
+[
+  {
+    "question": "What method is used to transform template waveforms into an orthonormal basis in the passage?",
+    "ground_truth": "The method used to transform template waveforms into an orthonormal basis is singular value decomposition (SVD). The templates are arranged into the rows of a matrix and factored through SVD to obtain orthogonal matrices and a diagonal matrix with singular values.",
+    "source_arxiv_id": "hf_2a183a700fd6",
+    "source_section": "gravitational waveforms"
+  },
+  {
+    "question": "What conjecture did H. Masur and W. A. Veech independently prove regarding interval exchange transformations?",
+    "ground_truth": "H. Masur and W. A. Veech independently proved Keane's conjecture, which asserts the unique ergodicity of almost all interval exchange transformations.",
+    "source_arxiv_id": "hf_92635cd72c52",
+    "source_section": "preamble"
+  },
+  {
+    "question": "What are some of the parameters listed for the exoplanets mentioned in the passage?",
+    "ground_truth": "The passage lists various parameters for several exoplanets, including values such as 0.20, 0.280, 55.027, 52992.8, and others, associated with exoplanets like hd 37605 b, hd 45350 b, and hd 80606 b. Parameters such as 0.677, 0.778, and 0.933 are also mentioned, suggesting characteristics like orbital metrics or physical properties.",
+    "source_arxiv_id": "hf_1c0c6d9011bb",
+    "source_section": "summary"
+  },
+  {
+    "question": "What challenge is associated with obtaining spectral data for supernovae (sne) as mentioned in the passage?",
+    "ground_truth": "The challenge associated with obtaining spectral data for supernovae is that it is not feasible to obtain spectra for thousands of faint supernovae each fall.",
+    "source_arxiv_id": "hf_908111372629",
+    "source_section": "future prospects and conclusions"
+  },
+  {
+    "question": "What year was the paper by Perdew, Burke, and Ernzerhof published that discusses physical letters?",
+    "ground_truth": "The paper by Perdew, Burke, and Ernzerhof discussing physical letters was published in 1996.",
+    "source_arxiv_id": "hf_be4b594cc337",
+    "source_section": "references"
+  },
+  {
+    "question": "What is the relationship between the bound state energy and the continuum at small binding energies?",
+    "ground_truth": "At small binding energies, the bound state energy approaches the continuum quadratically. Far below the continuum, the bound state approaches the bare state in the closed channel.",
+    "source_arxiv_id": "hf_1c8c4acdf0f2",
+    "source_section": "acknowledgements"
+  },
+  {
+    "question": "What type of publications are referenced in the passage?",
+    "ground_truth": "The passage references various academic publications, specifically journal articles from astronomy and astrophysics (noted as 'a&a' for Astronomy & Astrophysics, 'apj' for The Astrophysical Journal, and 'mnras' for Monthly Notices of the Royal Astronomical Society). Additionally, it includes a preprint from the arXiv repository.",
+    "source_arxiv_id": "hf_c7b493394cda",
+    "source_section": "acknowledgements"
+  },
+  {
+    "question": "What is the role of DNA folding in the cell nucleus according to the passage?",
+    "ground_truth": "DNA folding in the cell nucleus serves several roles: it minimizes the space taken up by DNA, allows different genes to be enhanced or inhibited based on their structure, and enables the DNA to be unfolded when necessary for various stages in the cell cycle or to alter gene expression. Additionally, the packaging of DNA into higher-order structures affects accessibility for vital reactions like transcription.",
+    "source_arxiv_id": "hf_849bcc6e21b5",
+    "source_section": "macroscopic properties and parameterizations of multi-resolution bead-spring models"
+  },
+  {
+    "question": "What are multitensors with the identity natural transformation called in the context of the passage?",
+    "ground_truth": "Multitensors with the identity natural transformation are called 'normal' in the context of the passage. This distinction highlights that there is no meaningful way to regard a multitensor as living in the category of algebras for a monad, except when it is the identity monad.",
+    "source_arxiv_id": "hf_b00665a20fe2",
+    "source_section": "enriched graphs and lax monoidal categories"
+  },
+  {
+    "question": "How do the low-order (lo) and next-to-low-order (nlo) parametrizations perform in explaining the behavior of small and large nuclei according to the passage?",
+    "ground_truth": "The passage indicates that the medium and large nuclei are well explained by the current lo and nlo parametrizations. In contrast, small nuclei are not so well reproduced, suggesting a limitation in the parametrizations' effectiveness for smaller nuclei.",
+    "source_arxiv_id": "hf_7c2016c3789e",
+    "source_section": "preamble"
+  },
+  {
+    "question": "What does the passage conclude about the observed line emission in the foreground galaxy?",
+    "ground_truth": "The passage concludes that LINER or AGN activity dominates the observed line emission in the foreground galaxy. It also mentions that while the X-ray luminosity is low enough to be produced by star formation, the analysis of the optical spectrum attributes the X-ray emission primarily to weak AGN activity.",
+    "source_arxiv_id": "hf_2be808b75dbf",
+    "source_section": "concluding remarks"
+  },
+  {
+    "question": "What is the key idea for designing the proposed invariants under gamma correction in image functions?",
+    "ground_truth": "The key idea for designing the proposed invariants is to form suitable ratios of the derivatives of the image function such that the parameters describing the transformation of interest will cancel out. This allows for achieving invariance under linear brightness changes and can be adjusted conceptually for gamma correction by considering the logarithm of the image function.",
+    "source_arxiv_id": "hf_d8a1756b0e1f",
+    "source_section": "introduction"
+  },
+  {
+    "question": "What are the sources of ultra-high-energy (UHE) neutrinos mentioned in the passage?",
+    "ground_truth": "The passage mentions two sources of ultra-high-energy (UHE) neutrinos: one is the resonantly produced photopions from distant sources, which provide a guaranteed source of cosmogenic UHE neutrinos observed at Earth. The second source is from inelastic scattering of beam protons off the ambient photon gas in astrophysical accelerators, which also produces photopions that contribute to the UHE neutrino spectrum.",
+    "source_arxiv_id": "hf_7f4e137ee05f",
+    "source_section": "acknowledgements"
+  },
+  {
+    "question": "What properties does the shift on the subshift of finite type exhibit according to the passage?",
+    "ground_truth": "The shift on the subshift of finite type is topologically mixing, equivalent to a Bernoulli shift, ergodic, strongly mixing, and has exponential decay of correlations. Additionally, it gives full measure to the subset of normal points.",
+    "source_arxiv_id": "hf_bbf7601ecaf4",
+    "source_section": "bernoulli measures for the teichmller flow"
+  },
+  {
+    "question": "What happens to the ab phase in qh interferometers in the presence of a singular magnetic flux?",
+    "ground_truth": "In the presence of a singular magnetic flux, the ab phase from the gauge field is locally canceled by the phase induced by the deformation of the Laughlin wave function. This cancellation leads to the result that the ab effect does not exist in quantum Hall (qh) interferometers.",
+    "source_arxiv_id": "hf_6f3c94d5b9ad",
+    "source_section": "discussion"
+  },
+  {
+    "question": "What is the most appealing approach to directly measure the quasi-particle charge according to the passage?",
+    "ground_truth": "The most appealing approach to directly measure the quasi-particle charge is to make use of the Aharonov-Bohm (AB) effect, which relies on the fact that the interference of quasi-particles is affected by a magnetic flux.",
+    "source_arxiv_id": "hf_6f3c94d5b9ad",
+    "source_section": "projection onto the low-energy subspace"
+  },
+  {
+    "question": "What is the behavior of the density as the distance from the origin increases according to the passage?",
+    "ground_truth": "The density increases slowly as the distance from the origin grows, but near the border, this growth becomes explosive. For small time, most of the density is concentrated outside the neighborhood of the origin.",
+    "source_arxiv_id": "hf_8339fe7cb300",
+    "source_section": "auxiliary lemma"
+  },
+  {
+    "question": "What effects beyond the RFG model were introduced in the calculations, and how did these effects influence the scaling functions?",
+    "ground_truth": "The calculations introduced effects such as nuclear finite size, collective excitations, final state interactions, and meson-exchange currents (MEC). These effects influenced the scaling functions by causing sharp peaks in the shell model scaling functions at lower momentum transfers, which were not present in the RFG model, and by violating scaling properties, particularly from the collective excitations and the presence of MEC.",
+    "source_arxiv_id": "hf_33fea7bf9beb",
+    "source_section": "superscaling predictions"
+  },
+  {
+    "question": "What measurements can be predicted with good accuracy using empirical relations in the study of photonic crystal fibers?",
+    "ground_truth": "The study demonstrates that macro-bending loss measurements on high-quality photonic crystal fibers (PCFs) can be predicted with good accuracy using easy-to-evaluate empirical relations with only specific input parameters.",
+    "source_arxiv_id": "hf_3c9a07eebf51",
+    "source_section": "acknowledgments"
+  },
+  {
+    "question": "What is the total count and average value for the data associated with hd 80606 in the passage?",
+    "ground_truth": "For hd 80606, the total count is 130 and the average value is 8.7, as indicated in the passage.",
+    "source_arxiv_id": "hf_1c0c6d9011bb",
+    "source_section": "summary"
+  },
+  {
+    "question": "What does the helical jet model suggest about the intrinsic velocity of jets?",
+    "ground_truth": "The helical jet model suggests that the intrinsic velocity could be constant while the orientation changes over time, which would produce the observed variations in the projected apparent velocities.",
+    "source_arxiv_id": "hf_df1d52c586b4",
+    "source_section": "observations and data reduction"
+  },
+  {
+    "question": "What method is proposed for achieving spin state separation of an unpolarized beam of particles?",
+    "ground_truth": "The method proposed for attaining spin state separation of an unpolarized beam is the time varying sg interaction. This method takes advantage of the differing energy of particles with opposite spin orientations, allowing the separation of beams in the two states.",
+    "source_arxiv_id": "hf_42a21579ea0d",
+    "source_section": "acknowledgments"
+  },
+  {
+    "question": "What happens to the coupling strength when control fluxes are applied in opposite directions in the dc-squid loops?",
+    "ground_truth": "When the control fluxes are applied in opposite directions, the additional currents from the two dc-squid loops cancel each other out. This cancellation allows the coupling strength to remain tunable without changing the qubit states.",
+    "source_arxiv_id": "hf_9a5d83ecf677",
+    "source_section": "summary"
+  },
+  {
+    "question": "What principle is used in the WO3-x based nanoionics device to achieve synaptic plasticity and memory functions?",
+    "ground_truth": "The principle used in the WO3-x based nanoionics device to achieve synaptic plasticity and memory functions is the atomic switch operation.",
+    "source_arxiv_id": "hf_91539b587fb1",
+    "source_section": "acknowledgements"
+  },
+  {
+    "question": "What components are used in the squeezed vacuum generator described in the passage?",
+    "ground_truth": "The squeezed vacuum generator is composed of an optical parametric oscillator (OPO) and a second harmonic generator (SHG) that pumps the OPO. Both components use nonlinear crystals placed within optical cavities.",
+    "source_arxiv_id": "hf_1ee24bdb7714",
+    "source_section": "acknowledgments"
+  },
+  {
+    "question": "What method was used to reconstruct the individual filtergrams at the dot, and what were the conditions of the observations between dot and hinode?",
+    "ground_truth": "The individual filtergrams at the dot were reconstructed using a speckle masking technique. The dot and hinode carried out simultaneous observations, but there was little overlap between them due to bad weather conditions.",
+    "source_arxiv_id": "hf_bd23ca4a28a4",
+    "source_section": "discussion and conclusions"
+  },
+  {
+    "question": "What color characteristics do sne ia exhibit at later times compared to sne ii - p and sne ib/ic according to the passage?",
+    "ground_truth": "At later times (over two months), sne ia escape from the vicinity of other types and reach values above 1.2 mag, displaying distinct blue colors at almost all ages. In contrast, sne ii - p develop very red colors two months after peak, while sne ib and ic are the only ones that have specific colors not detailed in the passage.",
+    "source_arxiv_id": "hf_908111372629",
+    "source_section": "future prospects and conclusions"
+  },
+  {
+    "question": "What assumptions are made about the surfactant layer in the study of the interface between nematic and isotropic liquids?",
+    "ground_truth": "The surfactant layer is considered to be macroscopically infinitely thin, insoluble, and Newtonian. This implies that the interchange of surfactant molecules between the interface and the adjacent bulk fluids is small, and that the relaxation of the orientation of surfactant molecules is fast compared to the relaxation of surface waves.",
+    "source_arxiv_id": "hf_7e25d42a8943",
+    "source_section": "[app:dispersion]explicit form of dispersion relation"
+  },
+  {
+    "question": "What occurs to the tails of the density function when the wings are moving faster than the center?",
+    "ground_truth": "When the wings of the density function are moving faster than the center, one tail is shrinking while the other is extending. This results in a skewness in the density function.",
+    "source_arxiv_id": "hf_0c3bee2b76ec",
+    "source_section": "references"
+  },
+  {
+    "question": "What methods are mentioned in the passage for estimating the position of shape models?",
+    "ground_truth": "The passage mentions model-based methods, specifically using histograms for organ models like the liver, and atlas-based methods which involve affine registration to align data into an atlas for determining the initial position of shape models. Additionally, a popular particle filtering algorithm is used to detect the starting pose of models.",
+    "source_arxiv_id": "hf_4700d7761b81",
+    "source_section": "methods"
+  },
+  {
+    "question": "Who are the authors of the paper referenced as 'apj 680, l81'?",
+    "ground_truth": "The authors of the paper referenced as 'apj 680, l81' are D.M. Long, P.T. Gallagher, R.T.J. McAteer, and D.S. Bloomfield.",
+    "source_arxiv_id": "hf_683c4fa429f5",
+    "source_section": "references"
+  },
+  {
+    "question": "What is the significance of the configuration defined by large branches of a complete train track incident on a switch, according to the passage?",
+    "ground_truth": "The configuration defined by large branches of a complete train track incident on a switch is significant because it ensures that at least one branch is not small, which is essential for the proof of the corollary. Additionally, it indicates that every large branch of a train track in special standard form for some framing is contained in such a configuration.",
+    "source_arxiv_id": "hf_bbf7601ecaf4",
+    "source_section": "bernoulli measures for the teichmller flow"
+  },
+  {
+    "question": "What happens to the energies of different spin states when two control fluxes are in opposite directions?",
+    "ground_truth": "When the two control fluxes are in opposite directions, the energies of the different spin states remain equal to each other. This occurs because the additional currents from the two dc-squids cancel each other, resulting in a vanishing total additional current in the connecting loop.",
+    "source_arxiv_id": "hf_9a5d83ecf677",
+    "source_section": "summary"
+  },
+  {
+    "question": "What does the reparametrization invariance of open Wilson lines indicate about the actions of diff and the BRST charge at the zero-slope limit?",
+    "ground_truth": "The reparametrization invariance of open Wilson lines indicates that the action of diff or the BRST charge becomes null at the zero-slope limit.",
+    "source_arxiv_id": "hf_d948741a226c",
+    "source_section": "eigenstates"
+  },
+  {
+    "question": "What is the widely used form of the contribution to the surface free energy density caused by finite interface thickness?",
+    "ground_truth": "The widely used form of the contribution is the Helfrich curvature expansion, which describes the geometry of the interface using the mean curvature and the Gaussian curvature. Material parameters characterizing the interface include bending rigidity, saddle-splay rigidity, and spontaneous curvature.",
+    "source_arxiv_id": "hf_7e25d42a8943",
+    "source_section": "[app:dispersion]explicit form of dispersion relation"
+  },
+  {
+    "question": "What is the relationship between the spin effects and the quasineutrality limit in the context of plasmas?",
+    "ground_truth": "The quasineutrality limit holds in nonrelativistic plasmas even when spin effects dominate, suggesting that quasineutrality can be justified under these conditions. This relationship indicates that the effects of charge separation can be negligible in certain scenarios, particularly when considering plasmas with strong spin effects.",
+    "source_arxiv_id": "hf_af24aba0d29c",
+    "source_section": "v. discussion and conclusion"
+  },
+  {
+    "question": "What is suggested by the unexpected values of quasi-particle charges determined via shot noise measurements?",
+    "ground_truth": "The unexpected values of quasi-particle charges suggest that the Fano factor of a weak backscattering current is not determined solely by the quasi-particle charge.",
+    "source_arxiv_id": "hf_6f3c94d5b9ad",
+    "source_section": "commutation relations for quasi-particle operators"
+  },
+  {
+    "question": "What did the optimization simulation reveal about the co-adsorbed structure of nitrogen and oxygen atoms on the cu (111) surface?",
+    "ground_truth": "The optimization simulation revealed that there was a co-adsorbed structure of nitrogen and oxygen atoms, which was energetically stabler by 1.08 eV than the molecular adsorbed cu-tl structure.",
+    "source_arxiv_id": "hf_be4b594cc337",
+    "source_section": "references"
+  },
+  {
+    "question": "What is a possible application mentioned for the technique discussed in the passage?",
+    "ground_truth": "A possible application of this technique is the detection of neutrinos with energies.",
+    "source_arxiv_id": "hf_ed58671d472b",
+    "source_section": "acknowledgements"
+  },
+  {
+    "question": "What method was used to determine the power of discrimination in the study mentioned in the passage?",
+    "ground_truth": "The method used to determine the power of discrimination in the study was linear discriminant analysis (LDA). This approach involved varying the fraction and zenith angle parameters to systematically analyze the results.",
+    "source_arxiv_id": "hf_f45485b29a12",
+    "source_section": "acknowledgments"
+  },
+  {
+    "question": "Who are the authors mentioned in the passage associated with the year 1999?",
+    "ground_truth": "The authors associated with the year 1999 in the passage are Leggett, S.K., Marley, M.S., Saumon, D., Guillot, T., Freedman, R.S., Hubbard, W.B., Burrows, A., and Lunine, J.I.",
+    "source_arxiv_id": "hf_99b79e01b85b",
+    "source_section": "conclusion"
+  },
+  {
+    "question": "What observation was made about the spin-spin relaxation rate after correcting for the Redfield contribution?",
+    "ground_truth": "Once the data have been corrected by the Redfield contribution, it was found that the spin-spin relaxation rate is temperature independent.",
+    "source_arxiv_id": "hf_4a79d33e3d18",
+    "source_section": "v. nuclear spin-lattice relaxation rate @xmath14"
+  },
+  {
+    "question": "Which institutions funded the German institutions mentioned in the passage?",
+    "ground_truth": "The German institutions were funded by Deutsches Zentrum f\u00fcr Luft- und Raumfahrt e.V. (DLR).",
+    "source_arxiv_id": "hf_683c4fa429f5",
+    "source_section": "preamble"
+  },
+  {
+    "question": "What are the conditions for the indices of terms in the matrix product described in the passage?",
+    "ground_truth": "The conditions for the indices of terms in the matrix product are: the row index of the first term must be equal to the column index of the last term, the column index of every term must equal the row index of the next term, and the row index of a term is at most the row index of the next term.",
+    "source_arxiv_id": "hf_941fdbea1684",
+    "source_section": "the complexity of equation solvability problem over nilpotent matrix rings"
+  },
+  {
+    "question": "What does lemma A1 establish regarding the formula for arbitrary integers and real numbers?",
+    "ground_truth": "Lemma A1 establishes that for arbitrary integers and real numbers, a specific formula holds, which can be verified using the well-known relations for the Pochhammer symbol and the formula for the Euler gamma function. The sum on the left-hand side of the referenced equation is related to the generalized hypergeometric function.",
+    "source_arxiv_id": "hf_8339fe7cb300",
+    "source_section": "auxiliary lemma"
+  },
+  {
+    "question": "What factors compose the effective potential of the coupled qubits as mentioned in the passage?",
+    "ground_truth": "The effective potential of the coupled qubits is composed of the inductive energy of loops and the Josephson junction energy terms. The inductive energy is associated with the current of the right qubit, left qubit, and the connecting loop.",
+    "source_arxiv_id": "hf_9a5d83ecf677",
+    "source_section": "summary"
+  },
+  {
+    "question": "What evidence do two independent groups provide regarding the current state of the universe?",
+    "ground_truth": "Two independent groups using large samples of high-redshift supernovae type Ia presented a strong case for a current acceleration of the universe, which is consistent with a nonzero cosmological constant.",
+    "source_arxiv_id": "hf_908111372629",
+    "source_section": "introduction"
+  },
+  {
+    "question": "What are the three notions of non-locality discussed in the paper?",
+    "ground_truth": "The three notions of non-locality discussed in the paper are bell-nonlocality, EPR-steerability, and non-separability.",
+    "source_arxiv_id": "hf_dbdd98cc8169",
+    "source_section": "preamble"
+  },
+  {
+    "question": "What does the passage demonstrate regarding the zero-slope limit and infinitesimal reparametrizations?",
+    "ground_truth": "The passage shows that at the zero-slope limit, certain expressions give rise to infinitesimal reparametrizations. This can be verified by recalling how the pull-back on the path transforms under these infinitesimal reparametrizations, leading to the conclusion that the integrand in the equation is a total derivative with respect to each parameter.",
+    "source_arxiv_id": "hf_d948741a226c",
+    "source_section": "eigenstates"
+  },
+  {
+    "question": "What is the estimated field strength of the loops if the magnetic filling factor is assumed to be close to unity?",
+    "ground_truth": "If the magnetic filling factor is assumed to be close to unity, the field strength of the loops can be estimated to be of order 10 - 100 g. This estimation relies on the assumption that the fields occupy most of the resolution element.",
+    "source_arxiv_id": "hf_bd23ca4a28a4",
+    "source_section": "discussion and conclusions"
+  },
+  {
+    "question": "What corrections are calculated for the couplings in the Higgs sector, and what is the requirement for these corrections?",
+    "ground_truth": "The passage states that the Higgs sector can give sizable higher order corrections to the couplings, which are calculated to one loop level. The requirement is that the corrected couplings must lie within a specified range of their fitted value.",
+    "source_arxiv_id": "hf_728549a822ea",
+    "source_section": "preamble"
+  },
+  {
+    "question": "What is the purpose of the experimental velocity database mentioned in the passage?",
+    "ground_truth": "The experimental velocity database is available for download at C. Meneveau's webpage, suggesting that it is intended for researchers or practitioners who need access to velocity data for their studies or experiments.",
+    "source_arxiv_id": "hf_816d8775c280",
+    "source_section": "acknowledgements"
+  },
+  {
+    "question": "What types of publications are cited in the passage?",
+    "ground_truth": "The passage cites various types of publications, including letters (lett.), physical reviews (phys.), and nuclear physics (nucl. phys.) journals. These publications include both articles and errata, showcasing research from different years.",
+    "source_arxiv_id": "hf_7c2016c3789e",
+    "source_section": "[library] code for calculating nuclear parton distribution functions and their uncertainties"
+  },
+  {
+    "question": "What is the focus of short-circuit logic as described in the passage?",
+    "ground_truth": "Short-circuit logic focuses on the question of how to evaluate binary connectives that prescribe short-circuit evaluation in imperative programming. It explores different approaches to defining these connectives, including using the conditional as an auxiliary operator or establishing axiomatizations for the connectives without using the conditional.",
+    "source_arxiv_id": "hf_f9cd32c8f246",
+    "source_section": "conclusions"
+  },
+  {
+    "question": "What method is used to determine the positional parameters of the coronal mass ejection (CME)?",
+    "ground_truth": "To determine the positional parameters of the CME as a function of time, the method involves tracing the outer envelope of the CME bubble by visually clicking on three points in each image from the stereo spacecraft. A circle is then fitted through these three points in each image.",
+    "source_arxiv_id": "hf_683c4fa429f5",
+    "source_section": "preamble"
+  },
+  {
+    "question": "What factors influence the precision of measurements in the neutralino/chargino sector according to the passage?",
+    "ground_truth": "The precision of measurements in the neutralino/chargino sector depends on the specific scenario, the tunable beam energy, and beam polarization. Additionally, uncertainties in the knowledge of the model parameters can significantly affect the measurement outcomes.",
+    "source_arxiv_id": "hf_b6bea0378af1",
+    "source_section": "standard model constants"
+  },
+  {
+    "question": "What are the differences in the analyses between the ecliptic-frame maps and the galactic-frame maps as described in the passage?",
+    "ground_truth": "The analysis of the ecliptic-frame maps ignores the faint high-latitude foreground galactic emission correction and excludes the quadrupole moment, while the analysis of the galactic-frame maps accounts for the galactic emission correction and includes the quadrupole moment. This leads to different results as indicated by the line types in the figures.",
+    "source_arxiv_id": "hf_984cca49a875",
+    "source_section": "discussion and conclusion"
+  },
+  {
+    "question": "What is the main objective of the present work mentioned in the passage?",
+    "ground_truth": "The main objective of the present work is to facilitate the scientific exploitation of supernovae (sne) for which no spectroscopic observations exist.",
+    "source_arxiv_id": "hf_908111372629",
+    "source_section": "method"
+  },
+  {
+    "question": "What is the main focus of the section regarding the Bogolubov transform?",
+    "ground_truth": "The main focus of the section is on tachyon vertex operators, specifically in relation to the world-volume theory of the 31-brane. It discusses the Bogolubov transform associated with the Neumann boundary state.",
+    "source_arxiv_id": "hf_d948741a226c",
+    "source_section": "eigenstates"
+  },
+  {
+    "question": "What is the title of the work authored by F. del Aguila, J. de Blas, P. Langacker, and M. Perez-Victoria published in 2011?",
+    "ground_truth": "The passage does not provide the specific title of the work authored by F. del Aguila, J. de Blas, P. Langacker, and M. Perez-Victoria. It only mentions the citation details including the journal and publication year.",
+    "source_arxiv_id": "hf_bd90a4a6483c",
+    "source_section": "summary"
+  },
+  {
+    "question": "What is the focus of the research by Canfield et al. in their paper on metamaterials?",
+    "ground_truth": "The research by Canfield et al. focuses on local-field effects in the nonlinear optical response of metamaterials.",
+    "source_arxiv_id": "hf_fff5efe442fe",
+    "source_section": "supplementary information: + numerical simulations"
+  }
+]

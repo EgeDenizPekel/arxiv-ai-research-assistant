@@ -19,3 +19,4 @@ __pycache__/
 
 # MLflow
 mlruns/
+project.decision.log.md
