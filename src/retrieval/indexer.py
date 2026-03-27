@@ -11,6 +11,8 @@ from sentence_transformers import SentenceTransformer
 
 from src.pipeline.database import get_all_chunks
 
+from .device import get_device
+
 load_dotenv()
 
 EMBEDDING_MODEL = "BAAI/bge-large-en-v1.5"
@@ -145,7 +147,9 @@ def run_indexer() -> dict:
 
     if new_chunks:
         logger.info(f"Loading embedding model: {EMBEDDING_MODEL}")
-        model = SentenceTransformer(EMBEDDING_MODEL, device="cuda")
+        device = get_device()
+        logger.info(f"Using device: {device}")
+        model = SentenceTransformer(EMBEDDING_MODEL, device=device)
 
         texts = [chunk["text"] for chunk in new_chunks]
 

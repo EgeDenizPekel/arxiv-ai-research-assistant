@@ -2,3 +2,20 @@ CLAUDE.md
 agent.instructions.md
 rag-system-plan.md
 .idea
+
+# Environment
+.env
+
+# Runtime data artifacts
+data/pdfs/
+data/parsed/
+data/papers.db
+data/bm25_index.pkl
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# MLflow
+mlruns/

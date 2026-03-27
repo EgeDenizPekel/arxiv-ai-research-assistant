@@ -7,6 +7,7 @@ from openai import OpenAI
 from qdrant_client import QdrantClient
 from sentence_transformers import CrossEncoder, SentenceTransformer
 
+from .device import get_device
 from .indexer import COLLECTION_NAME, EMBEDDING_MODEL, QDRANT_URL, load_bm25_index
 
 load_dotenv()
@@ -26,7 +27,7 @@ _model_cache: dict = {}
 def _get_embedding_model() -> SentenceTransformer:
     if "embedder" not in _model_cache:
         logger.info(f"Loading embedding model: {EMBEDDING_MODEL}")
-        _model_cache["embedder"] = SentenceTransformer(EMBEDDING_MODEL, device="cuda")
+        _model_cache["embedder"] = SentenceTransformer(EMBEDDING_MODEL, device=get_device())
     return _model_cache["embedder"]
 
 

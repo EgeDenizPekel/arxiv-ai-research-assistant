@@ -31,7 +31,7 @@ def main() -> None:
     print("\nPipeline summary:")
     print(f"  Papers fetched:       {summary['papers_fetched']}")
     print(f"  Papers stored:        {summary['papers_stored']}")
-    print(f"  Papers failed parse:  {summary['papers_failed_parse']}")
+    print(f"  Papers failed:        {summary['papers_failed']}")
     print(f"  Chunks stored:        {summary['chunks_stored']}")
 
 
