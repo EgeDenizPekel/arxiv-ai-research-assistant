@@ -20,7 +20,7 @@ export default function App() {
   const [evalResults, setEvalResults] = useState<EvalResults | null>(null);
   const [activeTab, setActiveTab] = useState<'query' | 'eval'>('query');
 
-  const { answer, chunks, status, error, submit, reset } = useRAGQuery();
+  const { answer, chunks, status, error, usedConfig, submit, reset } = useRAGQuery();
 
   useEffect(() => {
     fetch('/configs')
@@ -70,7 +70,7 @@ export default function App() {
 
       {/* ── Hero ── */}
       <div className="bg-gradient-to-b from-[#161929] to-[#0f1117] border-b border-[#1e2130]">
-        <div className="max-w-7xl mx-auto px-6 py-8">
+        <div className="max-w-7xl mx-auto px-6 py-5">
           <h2 className="text-xl font-bold text-[#e2e8f0] mb-1 tracking-tight">
             Ask questions across ML/AI research papers
           </h2>
@@ -93,20 +93,20 @@ export default function App() {
       </div>
 
       {/* ── Main ── */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-6 py-8">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-6 py-6">
         {activeTab === 'query' ? (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
 
             {/* Left: query + answer */}
             <div className="flex flex-col gap-5">
               <QueryPanel configs={configs} status={status} onSubmit={submit} onReset={reset} />
-              <AnswerPanel answer={answer} status={status} error={error} />
+              <AnswerPanel answer={answer} status={status} error={error} usedConfig={usedConfig} />
             </div>
 
             {/* Right: sources or explainer */}
             <div className="lg:sticky lg:top-[68px]">
               {chunks.length > 0 ? (
-                <SourcesPanel chunks={chunks} />
+                <SourcesPanel chunks={chunks} usedConfig={usedConfig} />
               ) : (
                 <HowItWorks onSwitchToEval={() => setActiveTab('eval')} />
               )}

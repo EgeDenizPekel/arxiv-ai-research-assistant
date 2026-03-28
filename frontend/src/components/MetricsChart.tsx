@@ -8,6 +8,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
+import { Trophy } from 'lucide-react';
 import type { EvalResults } from '../types';
 
 interface MetricsChartProps {
@@ -15,17 +16,17 @@ interface MetricsChartProps {
 }
 
 const METRIC_COLORS: Record<string, string> = {
-  faithfulness: '#818cf8',
+  faithfulness:      '#818cf8',
   context_precision: '#34d399',
-  context_recall: '#f59e0b',
-  answer_relevancy: '#f472b6',
+  context_recall:    '#f59e0b',
+  answer_relevancy:  '#f472b6',
 };
 
 const METRIC_LABELS: Record<string, string> = {
-  faithfulness: 'Faithfulness',
+  faithfulness:      'Faithfulness',
   context_precision: 'Ctx Precision',
-  context_recall: 'Ctx Recall',
-  answer_relevancy: 'Ans Relevancy',
+  context_recall:    'Ctx Recall',
+  answer_relevancy:  'Ans Relevancy',
 };
 
 const METRIC_DESCRIPTIONS: Record<string, string> = {
@@ -40,10 +41,17 @@ const METRIC_DESCRIPTIONS: Record<string, string> = {
 };
 
 const CONFIG_DESCRIPTIONS: Record<string, string> = {
-  naive: 'Dense-only vector search. Fast baseline with no reranking.',
-  hybrid: 'Combines dense embeddings with BM25 keyword search via Reciprocal Rank Fusion.',
+  naive:    'Dense-only vector search. Fast baseline with no reranking.',
+  hybrid:   'Combines dense embeddings with BM25 keyword search via Reciprocal Rank Fusion.',
   reranked: 'Hybrid retrieval re-scored by a cross-encoder for higher precision.',
-  hyde: 'GPT-4o-mini generates a hypothetical answer first, then searches using its embedding.',
+  hyde:     'GPT-4o-mini generates a hypothetical answer first, then searches using its embedding.',
+};
+
+const CONFIG_DISPLAY: Record<string, string> = {
+  naive:    'Naive',
+  hybrid:   'Hybrid',
+  reranked: 'Reranked',
+  hyde:     'HyDE',
 };
 
 const CONFIG_ORDER = ['naive', 'hybrid', 'reranked', 'hyde'];
@@ -64,7 +72,9 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   if (!active || !payload?.length) return null;
   return (
     <div className="bg-[#1e2130] border border-[#2a2d3e] rounded-lg p-3 shadow-xl">
-      <p className="text-xs font-semibold text-[#e2e8f0] mb-1 capitalize">{label}</p>
+      <p className="text-xs font-semibold text-[#e2e8f0] mb-1">
+        {CONFIG_DISPLAY[label] ?? label}
+      </p>
       {CONFIG_DESCRIPTIONS[label] && (
         <p className="text-xs text-[#4a5166] mb-2 max-w-[200px]">{CONFIG_DESCRIPTIONS[label]}</p>
       )}
@@ -80,6 +90,8 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 };
 
 export function MetricsChart({ results }: MetricsChartProps) {
+  const metrics = ['faithfulness', 'context_precision', 'context_recall', 'answer_relevancy'];
+
   const data = CONFIG_ORDER
     .filter(cfg => cfg in results.configs)
     .map(cfg => ({
@@ -87,47 +99,62 @@ export function MetricsChart({ results }: MetricsChartProps) {
       ...results.configs[cfg],
     }));
 
-  const metrics = ['faithfulness', 'context_precision', 'context_recall', 'answer_relevancy'];
+  // Dynamic Y-axis domain - don't hardcode 0.75
+  const allValues = data.flatMap(row => metrics.map(m => (row as any)[m] as number));
+  const minVal = Math.min(...allValues);
+  const yMin = Math.max(0, Math.floor(minVal * 20) / 20 - 0.05); // floor to nearest 5%, minus 5%
 
-  // Compute overall winner (highest average across all metrics)
+  // Winner calculation
   const withAvg = data.map(row => ({
     ...row,
     avg: metrics.reduce((s, m) => s + ((row as any)[m] as number), 0) / metrics.length,
   }));
   const winner = withAvg.reduce((best, cur) => cur.avg > best.avg ? cur : best);
   const naive = withAvg.find(r => r.config === 'naive');
-  const improvement = naive ? ((winner.avg - naive.avg) / naive.avg * 100).toFixed(1) : null;
+
+  // Absolute improvement in percentage points
+  const absolutePts = naive && winner.config !== 'naive'
+    ? ((winner.avg - naive.avg) * 100).toFixed(1)
+    : null;
 
   return (
     <div className="bg-[#1a1d2e] border border-[#2a2d3e] rounded-xl p-5">
       {/* Header */}
       <div className="flex items-start justify-between mb-1">
-        <h2 className="text-sm font-semibold text-[#818cf8] uppercase tracking-widest">
-          RAGAS Evaluation
-        </h2>
+        <div>
+          <h2 className="text-sm font-semibold text-[#818cf8] uppercase tracking-widest">
+            RAGAS Evaluation
+          </h2>
+          {results.dataset_size && (
+            <span className="inline-block mt-1 text-xs bg-[#0f1117] border border-[#2a2d3e] text-[#94a3b8] px-2 py-0.5 rounded">
+              {results.dataset_size} questions evaluated
+            </span>
+          )}
+        </div>
         {results.timestamp && (
           <span className="text-xs text-[#4a5166]">
-            Evaluated {formatTimestamp(results.timestamp)}
+            {formatTimestamp(results.timestamp)}
           </span>
         )}
       </div>
-      <p className="text-xs text-[#6b7280] mb-1">
-        Each retrieval strategy was evaluated on {results.dataset_size ?? '?'} questions using RAGAS - an LLM-as-judge framework that scores both retrieval quality and answer quality.
+
+      <p className="text-xs text-[#6b7280] mt-2 mb-1">
+        Each retrieval strategy evaluated with RAGAS - an LLM-as-judge framework scoring both retrieval quality and answer quality.
       </p>
       <p className="text-xs text-[#4a5166] mb-5">
-        Scores closer to 100% are better. <span className="text-emerald-400">Green</span> cells are the best in each column.
+        Scores closer to 100% are better.{' '}
+        <span className="text-emerald-400">Green</span> = best in column,{' '}
+        <span className="text-[#818cf8]/70">blue</span> = second best.
       </p>
 
-      {/* Key Insight callout */}
-      {winner && improvement && (
+      {/* Winner callout */}
+      {winner && absolutePts && (
         <div className="mb-5 bg-[#818cf8]/10 border border-[#818cf8]/25 rounded-lg px-4 py-3 flex items-start gap-3">
-          <span className="text-base mt-0.5">🏆</span>
+          <Trophy size={14} className="text-yellow-400 flex-shrink-0 mt-0.5" />
           <div>
-            <p className="text-xs font-semibold text-[#c4b5fd] capitalize">
-              {winner.config} achieves the highest average score ({(winner.avg * 100).toFixed(1)}%)
-              {naive && winner.config !== 'naive' && (
-                <span className="text-emerald-400"> +{improvement}% over Naive baseline</span>
-              )}
+            <p className="text-xs font-semibold text-[#c4b5fd]">
+              {CONFIG_DISPLAY[winner.config] ?? winner.config} achieves the highest average score ({(winner.avg * 100).toFixed(1)}%)
+              <span className="text-emerald-400"> +{absolutePts} pts over Naive baseline</span>
             </p>
             <p className="text-xs text-[#4a5166] mt-0.5">
               {CONFIG_DESCRIPTIONS[winner.config]} Hover bars for per-metric breakdowns.
@@ -136,8 +163,8 @@ export function MetricsChart({ results }: MetricsChartProps) {
         </div>
       )}
 
-      {/* Chart */}
-      <ResponsiveContainer width="100%" height={300}>
+      {/* Chart - taller and dynamic domain */}
+      <ResponsiveContainer width="100%" height={400}>
         <BarChart data={data} margin={{ top: 4, right: 8, left: 4, bottom: 0 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#1e2130" />
           <XAxis
@@ -145,9 +172,10 @@ export function MetricsChart({ results }: MetricsChartProps) {
             tick={{ fill: '#94a3b8', fontSize: 11 }}
             axisLine={{ stroke: '#2a2d3e' }}
             tickLine={false}
+            tickFormatter={v => CONFIG_DISPLAY[v] ?? v}
           />
           <YAxis
-            domain={[0.75, 1.0]}
+            domain={[yMin, 1.0]}
             tickFormatter={v => `${(v * 100).toFixed(0)}%`}
             tick={{ fill: '#94a3b8', fontSize: 10 }}
             axisLine={false}
@@ -173,7 +201,7 @@ export function MetricsChart({ results }: MetricsChartProps) {
         </BarChart>
       </ResponsiveContainer>
 
-      {/* Score table */}
+      {/* Score table with 1st + 2nd place highlighting */}
       <div className="mt-5 overflow-x-auto">
         <table className="w-full text-xs">
           <thead>
@@ -196,18 +224,20 @@ export function MetricsChart({ results }: MetricsChartProps) {
             {data.map(row => (
               <tr key={row.config} className="border-b border-[#1e2130] hover:bg-[#0f1117] transition-colors">
                 <td className="py-3 pr-4">
-                  <span className="text-[#c4b5fd] font-medium capitalize">{row.config}</span>
+                  <span className="text-[#c4b5fd] font-medium">
+                    {CONFIG_DISPLAY[row.config] ?? row.config}
+                  </span>
                 </td>
                 {metrics.map(m => {
                   const val = (row as any)[m] as number;
-                  const best = Math.max(...data.map(r => (r as any)[m]));
+                  const sorted = [...data].map(r => (r as any)[m] as number).sort((a, b) => b - a);
+                  const rank = sorted.indexOf(val) + 1;
+                  const cellClass =
+                    rank === 1 ? 'text-emerald-400 font-semibold' :
+                    rank === 2 ? 'text-[#818cf8]/70 font-medium' :
+                                 'text-[#6b7280]';
                   return (
-                    <td
-                      key={m}
-                      className={`text-right py-2 px-2 font-mono align-top ${
-                        val === best ? 'text-emerald-400 font-semibold' : 'text-[#94a3b8]'
-                      }`}
-                    >
+                    <td key={m} className={`text-right py-2 px-2 font-mono align-top ${cellClass}`}>
                       {(val * 100).toFixed(1)}%
                     </td>
                   );
@@ -218,12 +248,12 @@ export function MetricsChart({ results }: MetricsChartProps) {
         </table>
       </div>
 
-      {/* Metric definitions */}
+      {/* Metric definitions - single column for linear reading */}
       <div className="mt-6 border-t border-[#1e2130] pt-5">
         <p className="text-xs font-semibold text-[#4a5166] uppercase tracking-wider mb-3">
           What do these metrics mean?
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div className="flex flex-col gap-3">
           {metrics.map(m => (
             <div key={m} className="flex gap-2">
               <span

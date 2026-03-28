@@ -7,6 +7,7 @@ interface UseRAGQueryReturn {
   chunks: Chunk[];
   status: QueryStatus;
   error: string | null;
+  usedConfig: string | null;
   submit: (query: string, config: string, topK: number) => void;
   reset: () => void;
 }
@@ -16,6 +17,7 @@ export function useRAGQuery(): UseRAGQueryReturn {
   const [chunks, setChunks] = useState<Chunk[]>([]);
   const [status, setStatus] = useState<QueryStatus>('idle');
   const [error, setError] = useState<string | null>(null);
+  const [usedConfig, setUsedConfig] = useState<string | null>(null);
   const abortRef = useRef<AbortController | null>(null);
 
   const reset = useCallback(() => {
@@ -24,10 +26,10 @@ export function useRAGQuery(): UseRAGQueryReturn {
     setChunks([]);
     setStatus('idle');
     setError(null);
+    setUsedConfig(null);
   }, []);
 
   const submit = useCallback((query: string, config: string, topK: number) => {
-    // Abort any in-flight request
     abortRef.current?.abort();
     const controller = new AbortController();
     abortRef.current = controller;
@@ -35,6 +37,7 @@ export function useRAGQuery(): UseRAGQueryReturn {
     setAnswer('');
     setChunks([]);
     setError(null);
+    setUsedConfig(config);
     setStatus('streaming');
 
     fetchEventSource('/query', {
@@ -65,16 +68,14 @@ export function useRAGQuery(): UseRAGQueryReturn {
         if (err instanceof DOMException && err.name === 'AbortError') return;
         setError('Connection error. Is the API running?');
         setStatus('error');
-        throw err; // stops retries
+        throw err;
       },
 
       onclose() {
-        if (status !== 'error') {
-          setStatus('done');
-        }
+        setStatus(s => s === 'error' ? 'error' : 'done');
       },
     });
-  }, [status]);
+  }, []);
 
-  return { answer, chunks, status, error, submit, reset };
+  return { answer, chunks, status, error, usedConfig, submit, reset };
 }

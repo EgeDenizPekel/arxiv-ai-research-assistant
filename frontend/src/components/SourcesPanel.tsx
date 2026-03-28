@@ -1,9 +1,17 @@
 import { useState } from 'react';
-import { ChevronDown, ChevronUp, FileText } from 'lucide-react';
+import { ChevronDown, ChevronUp, FileText, ExternalLink } from 'lucide-react';
 import type { Chunk } from '../types';
+
+const CONFIG_DISPLAY: Record<string, string> = {
+  naive:    'Naive',
+  hybrid:   'Hybrid',
+  reranked: 'Reranked',
+  hyde:     'HyDE',
+};
 
 interface SourcesPanelProps {
   chunks: Chunk[];
+  usedConfig?: string | null;
 }
 
 function ScoreBadge({ score }: { score: number }) {
@@ -24,6 +32,11 @@ function ChunkCard({ chunk, index }: { chunk: Chunk; index: number }) {
   const preview = chunk.text.slice(0, 220);
   const hasMore = chunk.text.length > 220;
 
+  // Build ArXiv URL - only for real arxiv IDs (not hf_ prefixed ones)
+  const arxivUrl = chunk.arxiv_id && !chunk.arxiv_id.startsWith('hf_')
+    ? `https://arxiv.org/abs/${chunk.arxiv_id}`
+    : null;
+
   return (
     <div className="bg-[#0f1117] border border-[#2a2d3e] rounded-lg p-4">
       {/* Header row */}
@@ -34,6 +47,17 @@ function ChunkCard({ chunk, index }: { chunk: Chunk; index: number }) {
           <span className="text-xs text-[#c4b5fd] font-medium truncate">
             {chunk.title ?? chunk.arxiv_id}
           </span>
+          {arxivUrl && (
+            <a
+              href={arxivUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Open on ArXiv"
+              className="flex-shrink-0 text-[#4a5166] hover:text-[#818cf8] transition-colors"
+            >
+              <ExternalLink size={11} />
+            </a>
+          )}
         </div>
         <ScoreBadge score={chunk.score} />
       </div>
@@ -66,18 +90,26 @@ function ChunkCard({ chunk, index }: { chunk: Chunk; index: number }) {
   );
 }
 
-export function SourcesPanel({ chunks }: SourcesPanelProps) {
+export function SourcesPanel({ chunks, usedConfig }: SourcesPanelProps) {
   if (chunks.length === 0) return null;
 
   return (
     <div className="bg-[#1a1d2e] border border-[#2a2d3e] rounded-xl p-5">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-sm font-semibold text-[#818cf8] uppercase tracking-widest">
-          Retrieved Sources
-          <span className="ml-2 text-xs font-normal text-[#4a5166] normal-case">
-            ({chunks.length} chunks)
+      {/* Header */}
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <h2 className="text-sm font-semibold text-[#818cf8] uppercase tracking-widest">
+            Retrieved Sources
+          </h2>
+          <span className="text-xs font-normal text-[#4a5166]">
+            ({chunks.length})
           </span>
-        </h2>
+          {usedConfig && (
+            <span className="flex items-center gap-1.5 text-xs bg-[#818cf8]/10 border border-[#818cf8]/25 text-[#a5b4fc] px-2 py-0.5 rounded-full">
+              {CONFIG_DISPLAY[usedConfig] ?? usedConfig}
+            </span>
+          )}
+        </div>
         <div className="flex items-center gap-3 text-xs text-[#4a5166]">
           <span className="flex items-center gap-1">
             <span className="w-2 h-2 rounded-full bg-emerald-400/60" /> &ge;80%

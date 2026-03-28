@@ -1,5 +1,5 @@
 import { useState, type KeyboardEvent } from 'react';
-import { Search, Loader2, Info } from 'lucide-react';
+import { Search, Loader2 } from 'lucide-react';
 import type { ConfigInfo, QueryStatus } from '../types';
 
 interface QueryPanelProps {
@@ -18,17 +18,14 @@ const EXAMPLE_QUESTIONS = [
   'How does RLHF fine-tune LLMs?',
 ];
 
-const TOP_K_DESCRIPTION =
-  'Number of paper chunks retrieved and passed to the LLM as context. Higher = more context, but slower and more expensive.';
+const TOP_K_PRESETS = [3, 5, 10];
 
 export function QueryPanel({ configs, status, onSubmit, onReset }: QueryPanelProps) {
   const [query, setQuery] = useState('');
   const [config, setConfig] = useState('reranked');
   const [topK, setTopK] = useState(5);
-  const [showTopKTip, setShowTopKTip] = useState(false);
 
   const isLoading = status === 'streaming';
-
   const selectedConfig = configs.find(c => c.name === config);
 
   const handleSubmit = () => {
@@ -37,9 +34,7 @@ export function QueryPanel({ configs, status, onSubmit, onReset }: QueryPanelPro
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
-      handleSubmit();
-    }
+    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) handleSubmit();
   };
 
   const handleReset = () => {
@@ -82,72 +77,84 @@ export function QueryPanel({ configs, status, onSubmit, onReset }: QueryPanelPro
         className="w-full bg-[#0f1117] border border-[#2a2d3e] rounded-lg px-4 py-3 text-sm text-[#e2e8f0] placeholder-[#4a5166] resize-none focus:outline-none focus:border-[#818cf8] transition-colors"
       />
 
-      {/* Config + top-k row */}
-      <div className="flex gap-3 mt-3">
-        <div className="flex-1">
-          <label className="block text-xs text-[#6b7280] mb-1">
-            Retrieval strategy
+      {/* Retrieval strategy */}
+      <div className="mt-3">
+        <label className="block text-xs text-[#6b7280] mb-1">Retrieval strategy</label>
+        <select
+          value={config}
+          onChange={e => setConfig(e.target.value)}
+          className="w-full bg-[#0f1117] border border-[#2a2d3e] rounded-lg px-3 py-2 text-sm text-[#e2e8f0] focus:outline-none focus:border-[#818cf8] transition-colors"
+        >
+          {(configs.length > 0 ? configs : [
+            { name: 'naive',    description: '' },
+            { name: 'hybrid',   description: '' },
+            { name: 'reranked', description: '' },
+            { name: 'hyde',     description: '' },
+          ]).map(c => (
+            <option key={c.name} value={c.name}>
+              {c.name === 'naive'    ? 'Naive - dense only'               :
+               c.name === 'hybrid'   ? 'Hybrid - dense + BM25'            :
+               c.name === 'reranked' ? 'Reranked - hybrid + cross-encoder' :
+               c.name === 'hyde'     ? 'HyDE - hypothetical doc'          : c.name}
+            </option>
+          ))}
+        </select>
+        {selectedConfig?.description && (
+          <p className="text-xs text-[#4a5166] mt-1.5 leading-relaxed">
+            {selectedConfig.description}
+          </p>
+        )}
+      </div>
+
+      {/* Top-K slider */}
+      <div className="mt-4">
+        <div className="flex items-center justify-between mb-1.5">
+          <label className="text-xs text-[#6b7280]">
+            Top-K chunks
+            <span className="text-[#4a5166] ml-1">- how many paper chunks the LLM receives as context</span>
           </label>
-          <select
-            value={config}
-            onChange={e => setConfig(e.target.value)}
-            className="w-full bg-[#0f1117] border border-[#2a2d3e] rounded-lg px-3 py-2 text-sm text-[#e2e8f0] focus:outline-none focus:border-[#818cf8] transition-colors"
-          >
-            {(configs.length > 0 ? configs : [
-              { name: 'naive', description: '' },
-              { name: 'hybrid', description: '' },
-              { name: 'reranked', description: '' },
-              { name: 'hyde', description: '' },
-            ]).map(c => (
-              <option key={c.name} value={c.name}>
-                {c.name === 'naive'    ? 'Naive - dense only'             :
-                 c.name === 'hybrid'   ? 'Hybrid - dense + BM25'          :
-                 c.name === 'reranked' ? 'Reranked - hybrid + cross-encoder' :
-                 c.name === 'hyde'     ? 'HyDE - hypothetical doc'        : c.name}
-              </option>
-            ))}
-          </select>
-          {/* Config description */}
-          {selectedConfig?.description && (
-            <p className="text-xs text-[#4a5166] mt-1.5 leading-relaxed">
-              {selectedConfig.description}
-            </p>
-          )}
+          <span className="text-xs font-mono font-semibold text-[#c4b5fd] bg-[#818cf8]/10 border border-[#818cf8]/20 px-2 py-0.5 rounded">
+            {topK}
+          </span>
         </div>
 
-        <div className="w-24">
-          <label className="flex items-center gap-1 text-xs text-[#6b7280] mb-1">
-            Top-K chunks
+        {/* Preset chips */}
+        <div className="flex items-center gap-2 mb-2">
+          {TOP_K_PRESETS.map(v => (
             <button
-              onMouseEnter={() => setShowTopKTip(true)}
-              onMouseLeave={() => setShowTopKTip(false)}
-              className="text-[#4a5166] hover:text-[#818cf8] transition-colors"
+              key={v}
+              onClick={() => setTopK(v)}
+              className={`text-xs px-2.5 py-0.5 rounded-full border transition-colors ${
+                topK === v
+                  ? 'bg-[#818cf8]/20 border-[#818cf8]/50 text-[#c4b5fd]'
+                  : 'bg-[#0f1117] border-[#2a2d3e] text-[#4a5166] hover:border-[#818cf8]/40 hover:text-[#94a3b8]'
+              }`}
             >
-              <Info size={11} />
+              {v}
             </button>
-          </label>
-          <input
-            type="number"
-            min={1}
-            max={20}
-            value={topK}
-            onChange={e => setTopK(Number(e.target.value))}
-            className="w-full bg-[#0f1117] border border-[#2a2d3e] rounded-lg px-3 py-2 text-sm text-[#e2e8f0] focus:outline-none focus:border-[#818cf8] transition-colors"
-          />
-          {showTopKTip && (
-            <div className="absolute z-20 mt-1 w-56 bg-[#1e2130] border border-[#2a2d3e] rounded-lg p-2.5 text-xs text-[#94a3b8] shadow-xl">
-              {TOP_K_DESCRIPTION}
-            </div>
-          )}
+          ))}
+        </div>
+
+        <input
+          type="range"
+          min={1}
+          max={20}
+          value={topK}
+          onChange={e => setTopK(Number(e.target.value))}
+          className="w-full accent-[#818cf8] h-1.5 rounded-full cursor-pointer"
+        />
+        <div className="flex justify-between text-[10px] text-[#3a3f55] mt-1">
+          <span>1 - faster</span>
+          <span>20 - more context</span>
         </div>
       </div>
 
       {/* Buttons */}
-      <div className="flex gap-2 mt-4">
+      <div className="flex gap-2 mt-5">
         <button
           onClick={handleSubmit}
           disabled={!query.trim() || isLoading}
-          className="flex items-center gap-2 bg-[#818cf8] hover:bg-[#6366f1] disabled:bg-[#3a3f55] disabled:cursor-not-allowed text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-colors"
+          className="flex items-center gap-2 bg-[#818cf8] hover:bg-[#6366f1] disabled:bg-[#2a2d3e] disabled:text-[#4a5166] disabled:cursor-not-allowed text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-colors"
         >
           {isLoading ? (
             <Loader2 size={15} className="animate-spin" />
