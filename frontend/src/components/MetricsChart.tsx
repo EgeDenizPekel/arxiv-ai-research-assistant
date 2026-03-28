@@ -48,6 +48,18 @@ const CONFIG_DESCRIPTIONS: Record<string, string> = {
 
 const CONFIG_ORDER = ['naive', 'hybrid', 'reranked', 'hyde'];
 
+function formatTimestamp(ts: string): string {
+  const m = ts.match(/eval_(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2})/);
+  if (!m) return ts;
+  const [, year, month, day, hour, min] = m;
+  const date = new Date(`${year}-${month}-${day}T${hour}:${min}:00`);
+  return (
+    date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) +
+    ' at ' +
+    date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
+  );
+}
+
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (!active || !payload?.length) return null;
   return (
@@ -77,6 +89,15 @@ export function MetricsChart({ results }: MetricsChartProps) {
 
   const metrics = ['faithfulness', 'context_precision', 'context_recall', 'answer_relevancy'];
 
+  // Compute overall winner (highest average across all metrics)
+  const withAvg = data.map(row => ({
+    ...row,
+    avg: metrics.reduce((s, m) => s + ((row as any)[m] as number), 0) / metrics.length,
+  }));
+  const winner = withAvg.reduce((best, cur) => cur.avg > best.avg ? cur : best);
+  const naive = withAvg.find(r => r.config === 'naive');
+  const improvement = naive ? ((winner.avg - naive.avg) / naive.avg * 100).toFixed(1) : null;
+
   return (
     <div className="bg-[#1a1d2e] border border-[#2a2d3e] rounded-xl p-5">
       {/* Header */}
@@ -85,7 +106,9 @@ export function MetricsChart({ results }: MetricsChartProps) {
           RAGAS Evaluation
         </h2>
         {results.timestamp && (
-          <span className="text-xs text-[#4a5166]">{results.timestamp}</span>
+          <span className="text-xs text-[#4a5166]">
+            Evaluated {formatTimestamp(results.timestamp)}
+          </span>
         )}
       </div>
       <p className="text-xs text-[#6b7280] mb-1">
@@ -94,6 +117,24 @@ export function MetricsChart({ results }: MetricsChartProps) {
       <p className="text-xs text-[#4a5166] mb-5">
         Scores closer to 100% are better. <span className="text-emerald-400">Green</span> cells are the best in each column.
       </p>
+
+      {/* Key Insight callout */}
+      {winner && improvement && (
+        <div className="mb-5 bg-[#818cf8]/10 border border-[#818cf8]/25 rounded-lg px-4 py-3 flex items-start gap-3">
+          <span className="text-base mt-0.5">🏆</span>
+          <div>
+            <p className="text-xs font-semibold text-[#c4b5fd] capitalize">
+              {winner.config} achieves the highest average score ({(winner.avg * 100).toFixed(1)}%)
+              {naive && winner.config !== 'naive' && (
+                <span className="text-emerald-400"> +{improvement}% over Naive baseline</span>
+              )}
+            </p>
+            <p className="text-xs text-[#4a5166] mt-0.5">
+              {CONFIG_DESCRIPTIONS[winner.config]} Hover bars for per-metric breakdowns.
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* Chart */}
       <ResponsiveContainer width="100%" height={300}>
@@ -140,7 +181,13 @@ export function MetricsChart({ results }: MetricsChartProps) {
               <th className="text-left py-2 pr-4 font-medium">Strategy</th>
               {metrics.map(m => (
                 <th key={m} className="text-right py-2 px-2 font-medium">
-                  {METRIC_LABELS[m]}
+                  <span className="flex items-center justify-end gap-1.5">
+                    <span
+                      className="w-2 h-2 rounded-full flex-shrink-0"
+                      style={{ background: METRIC_COLORS[m] }}
+                    />
+                    {METRIC_LABELS[m]}
+                  </span>
                 </th>
               ))}
             </tr>

@@ -71,12 +71,25 @@ export function SourcesPanel({ chunks }: SourcesPanelProps) {
 
   return (
     <div className="bg-[#1a1d2e] border border-[#2a2d3e] rounded-xl p-5">
-      <h2 className="text-sm font-semibold text-[#818cf8] uppercase tracking-widest mb-4">
-        Retrieved Sources
-        <span className="ml-2 text-xs font-normal text-[#4a5166] normal-case">
-          ({chunks.length} chunks)
-        </span>
-      </h2>
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-sm font-semibold text-[#818cf8] uppercase tracking-widest">
+          Retrieved Sources
+          <span className="ml-2 text-xs font-normal text-[#4a5166] normal-case">
+            ({chunks.length} chunks)
+          </span>
+        </h2>
+        <div className="flex items-center gap-3 text-xs text-[#4a5166]">
+          <span className="flex items-center gap-1">
+            <span className="w-2 h-2 rounded-full bg-emerald-400/60" /> &ge;80%
+          </span>
+          <span className="flex items-center gap-1">
+            <span className="w-2 h-2 rounded-full bg-yellow-400/60" /> &ge;60%
+          </span>
+          <span className="flex items-center gap-1">
+            <span className="w-2 h-2 rounded-full bg-slate-400/60" /> &lt;60%
+          </span>
+        </div>
+      </div>
 
       <div className="flex flex-col gap-3">
         {chunks.map((chunk, i) => (

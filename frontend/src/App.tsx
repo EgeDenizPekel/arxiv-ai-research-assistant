@@ -9,7 +9,7 @@ import type { ConfigInfo, EvalResults } from './types';
 import './index.css';
 
 const STAT_PILLS = [
-  { icon: Database,    label: '750 ML/AI Papers' },
+  { icon: Database,    label: '750 Papers · 11k Chunks' },
   { icon: GitBranch,   label: '4 Retrieval Strategies' },
   { icon: FlaskConical,label: 'RAGAS Evaluated' },
   { icon: Cpu,         label: 'GPT-4o-mini' },
